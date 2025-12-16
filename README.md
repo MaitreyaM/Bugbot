@@ -1,8 +1,10 @@
 # Multi-Agent RCA + Fix System (LangGraph)
 
-A production-grade 3-agent AI system that performs Root Cause Analysis (RCA), generates fix suggestions, and produces code patches for a Python/FastAPI codebase.
+A  3-agent AI system that performs Root Cause Analysis (RCA), generates fix suggestions, and produces code patches for a Python/FastAPI codebase.
 
-Built with: Langgraph so everyone else can understand my approach (intiial prototype was with my own framework clag agents built from scratch)
+# THIS WAS TESTED USING KIMI K2 and QWEN 3 32B open source models primarily which are weaker than gemini (since i did not have gemini credits left.) . Which is why some tools tend to help with complex parsing for these smaller open source models that are cheaper. 
+
+Built with: Langgraph so anyone else can understand my approach (intiial prototype was with my own framework clap agents built from scratch) : https://github.com/MaitreyaM/Clap-Agents
 - Custom shared memory and logging layer (`SharedMemory`, `MessageLogger`) for assignment-compliant JSON outputs
 
 ## Overview
@@ -249,8 +251,5 @@ You should see a summary like:
 - Fix Plan: 3 steps, multiple safety considerations.
 - Patch: `fixed_user.py` created under `outputs/` with a single-line change to the query.
 
-## License
 
-This project uses LangGraph and LangChain under their respective licenses,  
-and retains the original `clap-agents` code in `solution_clap_backup/` as a reference.
 
