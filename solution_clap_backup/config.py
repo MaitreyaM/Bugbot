@@ -40,7 +40,7 @@ OUTPUT_DIR.mkdir(exist_ok=True)
 MAX_FILE_SIZE_BYTES = 1_000_000  # 1MB max file read
 ALLOWED_READ_EXTENSIONS = {".py", ".txt", ".json", ".md", ".html", ".yml", ".yaml", ".ini", ".cfg", ".toml"}
 
-# Logging Configuration
+
 LOG_LEVEL = "INFO"
 
 def validate_config():

@@ -30,22 +30,14 @@ load_dotenv()
 
 
 async def run_rca_fix_patch_team() -> None:
-    """
-    Run a simple Clap `Team` with three agents:
-    - RCA_Agent: analyzes the trace using tools.
-    - Fix_Suggestion_Agent: turns RCA JSON into a fix plan.
-    - Patch_Generation_Agent: applies the fix and writes a patched file.
-
-    This is intentionally lighter-weight than the production pipeline and
-    is for experimentation / comparison only.
-    """
+    
     llm_service = GroqService()
     model = "meta-llama/llama-4-scout-17b-16e-instruct"
 
     trace_path = str(ERROR_TRACE_PATH)
 
     with Team() as team:
-        # 1. RCA Agent
+     
         rca_agent = Agent(
             name="RCA_Agent_Team",
             backstory=(
@@ -65,7 +57,7 @@ async def run_rca_fix_patch_team() -> None:
             parallel_tool_calls=False,
         )
 
-        # 2. Fix Suggestion Agent
+     
         fix_agent = Agent(
             name="Fix_Suggestion_Agent_Team",
             backstory=(
@@ -80,11 +72,11 @@ async def run_rca_fix_patch_team() -> None:
             task_expected_output="A JSON fix plan object.",
             llm_service=llm_service,
             model=model,
-            # reasoning-only in this demo
+          
             parallel_tool_calls=False,
         )
 
-        # 3. Patch Generation Agent
+
         patch_agent = Agent(
             name="Patch_Generation_Agent_Team",
             backstory=(
@@ -108,17 +100,16 @@ async def run_rca_fix_patch_team() -> None:
             parallel_tool_calls=False,
         )
 
-        # Wire dependencies: RCA → Fix → Patch
         rca_agent >> fix_agent >> patch_agent
 
-        # Run the whole team once
+    
         await team.run()
 
-        # Print concise summary
+        
         print("\n=== TEAM RESULTS (experimental) ===")
         for name, result in team.results.items():
             print(f"\nAgent: {name}")
-            # Each result is usually a dict with an "output" key for Agent.run()
+          
             if isinstance(result, dict) and "output" in result:
                 text = str(result["output"])
             else:
